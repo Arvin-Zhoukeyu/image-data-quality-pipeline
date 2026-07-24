@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# PyCharm
+.idea/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Dataset
+data/
+
+# Model checkpoints
+outputs/checkpoints/
+*.pt
+*.pth
+
+# Generated reports and figures
+outputs/figures/
+outputs/reports/
+outputs/*.csv
+outputs/*.json
+
+# Operating system
+.DS_Store
+Thumbs.db

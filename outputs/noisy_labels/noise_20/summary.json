@@ -1,0 +1,22 @@
+{
+    "noise_type": "symmetric_label_noise",
+    "requested_noise_rate": 0.2,
+    "actual_noise_rate": 0.2,
+    "seed": 42,
+    "total_samples": 50000,
+    "number_of_noisy_samples": 10000,
+    "number_of_clean_samples": 40000,
+    "num_classes": 10,
+    "class_names": [
+        "airplane",
+        "automobile",
+        "bird",
+        "cat",
+        "deer",
+        "dog",
+        "frog",
+        "horse",
+        "ship",
+        "truck"
+    ]
+}

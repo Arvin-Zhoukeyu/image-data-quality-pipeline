@@ -1,0 +1,11 @@
+torch
+torchvision
+cleanlab
+numpy
+pandas
+matplotlib
+scikit-learn
+jupyterlab
+PyYAML
+tqdm
+pytest
