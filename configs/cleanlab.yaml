@@ -1,0 +1,25 @@
+experiment:
+  seed: 42
+  noise_level: noise_20
+
+data:
+  data_dir: data
+  noise_root: outputs/noisy_labels
+  num_classes: 10
+
+cross_validation:
+  num_folds: 2
+  epochs_per_fold: 1
+  batch_size: 64
+  num_workers: 0
+  learning_rate: 0.001
+  weight_decay: 0.0001
+
+cleanlab:
+  filter_by: prune_by_noise_rate
+  rank_by: self_confidence
+
+output:
+  predictions_dir: outputs/predictions
+  cleanlab_dir: outputs/cleanlab
+  figures_dir: outputs/figures
