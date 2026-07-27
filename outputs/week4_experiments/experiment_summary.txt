@@ -1,0 +1,21 @@
+Week 4: Label-Noise Experiment
+==================================================
+
+Research question: How does increasing label noise affect image-classification performance?
+
+Noise levels: 10%, 20%, 30%
+
+Changes from the lowest to highest noise level:
+Accuracy change:  -0.1915
+Precision change: -0.1951
+Recall change:    -0.1918
+F1-score change:  -0.1963
+
+Full result table:
+noise_level  noise_percentage evaluation_label_source  number_of_samples  number_of_classes  accuracy  precision   recall       f1
+   noise_10                10              labels.npy              50000                 10   0.65158   0.655533 0.651736 0.652376
+   noise_20                20              labels.npy              50000                 10   0.55750   0.554817 0.557606 0.554988
+   noise_30                30              labels.npy              50000                 10   0.46008   0.460479 0.459907 0.456109
+
+Interpretation:
+A negative change indicates that classification performance decreased when label noise increased.

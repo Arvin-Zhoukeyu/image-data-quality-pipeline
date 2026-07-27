@@ -1,0 +1,64 @@
+# Week 4 experiment configuration
+# Compare classification performance under different label-noise levels.
+
+experiment:
+  name: "noise_level_comparison"
+
+  # Noise levels included in the experiment.
+  noise_levels:
+    - noise_10
+    - noise_20
+    - noise_30
+
+  # false:
+  # Only analyse prediction files that have already been generated.
+  #
+  # true:
+  # Run scripts/run_cleanlab.py automatically before analysis.
+  run_cleanlab: false
+
+  # When run_cleanlab is true:
+  #
+  # true:
+  # Skip a noise level if its prediction files already exist.
+  #
+  # false:
+  # Re-run every noise level.
+  skip_existing_predictions: true
+
+
+paths:
+  # Your actual prediction directory:
+  #
+  # outputs/
+  # └── predictions/
+  #     ├── noise_10/
+  #     ├── noise_20/
+  #     └── noise_30/
+  predictions_directory: "outputs/predictions"
+
+  # Week 4 analysis results will be saved here.
+  output_directory: "outputs/week4_experiments"
+
+
+files:
+  labels_filename: "labels.npy"
+
+  # If this file exists, it will be preferred for evaluation.
+  clean_labels_filename: "clean_labels.npy"
+
+  prediction_probabilities_filename: "out_of_sample_pred_probs.npy"
+
+
+metrics:
+  # Macro averaging gives every class equal importance.
+  average: "macro"
+
+  # Prevent warnings when a class is never predicted.
+  zero_division: 0
+
+
+plots:
+  dpi: 300
+  figure_width: 8
+  figure_height: 5
