@@ -15,7 +15,7 @@ experiment:
   #
   # true:
   # Run scripts/run_cleanlab.py automatically before analysis.
-  run_cleanlab: false
+  run_cleanlab: true
 
   # When run_cleanlab is true:
   #

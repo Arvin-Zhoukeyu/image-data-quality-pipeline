@@ -278,11 +278,23 @@ def prediction_files_exist(
     """Check whether the required prediction files exist."""
 
     labels_path = prediction_paths["labels"]
+    clean_labels_path = prediction_paths["clean_labels"]
     probabilities_path = prediction_paths["probabilities"]
+
+    noise_level = prediction_paths["directory"].name
+    clean_labels_available = (
+        noise_level == "clean"
+        or (
+            clean_labels_path.exists()
+            and clean_labels_path.is_file()
+            and clean_labels_path.stat().st_size > 0
+        )
+    )
 
     return (
         labels_path.exists()
         and probabilities_path.exists()
+        and clean_labels_available
         and labels_path.is_file()
         and probabilities_path.is_file()
         and labels_path.stat().st_size > 0

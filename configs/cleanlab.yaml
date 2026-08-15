@@ -9,9 +9,9 @@ data:
 
 cross_validation:
   num_folds: 5
-  epochs_per_fold: 5
-  batch_size: 64
-  num_workers: 0
+  epochs_per_fold: 10
+  batch_size: 128
+  num_workers: 4
   learning_rate: 0.001
   weight_decay: 0.0001
 

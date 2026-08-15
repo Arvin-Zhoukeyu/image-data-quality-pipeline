@@ -1,11 +1,17 @@
+# Core ML stack.
+# On GPU servers, install torch/torchvision using the command recommended
+# for the server's CUDA version, then install the remaining packages.
 torch
 torchvision
+
+# Experiment pipeline.
 cleanlab
 numpy
 pandas
 matplotlib
 scikit-learn
-jupyterlab
 PyYAML
 tqdm
+
+# Development / validation.
 pytest

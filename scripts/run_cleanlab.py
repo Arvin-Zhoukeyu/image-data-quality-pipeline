@@ -206,6 +206,11 @@ def main() -> None:
         / "labels.npy"
     )
 
+    clean_labels_path = (
+        predictions_directory
+        / "clean_labels.npy"
+    )
+
     fold_history_path = (
         predictions_directory
         / "cross_validation_history.csv"
@@ -304,6 +309,28 @@ def main() -> None:
         print(
             f"\nPredicted probabilities saved to: "
             f"{pred_probs_path}"
+        )
+
+    source_clean_labels_path = (
+        noise_root
+        / noise_level
+        / "clean_labels.npy"
+    )
+
+    if source_clean_labels_path.exists():
+        clean_labels = np.load(
+            source_clean_labels_path
+        )
+
+        if len(clean_labels) != len(labels):
+            raise ValueError(
+                "clean_labels.npy and labels.npy must "
+                "contain the same number of samples."
+            )
+
+        np.save(
+            clean_labels_path,
+            clean_labels,
         )
 
     true_noise_mask = load_noise_mask(
