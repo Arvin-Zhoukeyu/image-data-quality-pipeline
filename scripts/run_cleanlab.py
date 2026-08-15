@@ -7,18 +7,11 @@ from typing import Any
 
 import numpy as np
 import pandas as pd
-import torch
 import yaml
 
 from src.cleanlab_detector import (
     detect_label_issues,
     load_noise_mask,
-)
-from src.cleanlab_visualization import (
-    plot_confidence_comparison,
-    plot_detection_metrics,
-    plot_quality_score_histogram,
-    plot_top_label_issues,
 )
 from src.cross_validation import (
     CrossValidationConfig,
@@ -68,6 +61,15 @@ def parse_arguments() -> argparse.Namespace:
         help=(
             "Reuse saved out-of-sample probabilities "
             "instead of training the cross-validation models."
+        ),
+    )
+
+    parser.add_argument(
+        "--skip-figures",
+        action="store_true",
+        help=(
+            "Only save Cleanlab result files and skip "
+            "Matplotlib/CIFAR-10 visualizations."
         ),
     )
 
@@ -235,6 +237,8 @@ def main() -> None:
         )
 
     else:
+        import torch
+
         cross_validation_config = (
             CrossValidationConfig(
                 data_dir=data_dir,
@@ -370,48 +374,59 @@ def main() -> None:
         ),
     )
 
-    plot_quality_score_histogram(
-        quality_scores=(
-            detection_result.quality_scores
-        ),
-        issue_mask=(
-            detection_result.issue_mask
-        ),
-        output_path=(
-            figures_directory
-            / "quality_score_histogram.png"
-        ),
-    )
+    if arguments.skip_figures:
+        print("\nFigure generation skipped.")
 
-    plot_confidence_comparison(
-        results_table=(
-            detection_result.results_table
-        ),
-        output_path=(
-            figures_directory
-            / "self_confidence_comparison.png"
-        ),
-    )
+    else:
+        from src.cleanlab_visualization import (
+            plot_confidence_comparison,
+            plot_detection_metrics,
+            plot_quality_score_histogram,
+            plot_top_label_issues,
+        )
 
-    plot_detection_metrics(
-        metrics=detection_result.metrics,
-        output_path=(
-            figures_directory
-            / "detection_metrics.png"
-        ),
-    )
+        plot_quality_score_histogram(
+            quality_scores=(
+                detection_result.quality_scores
+            ),
+            issue_mask=(
+                detection_result.issue_mask
+            ),
+            output_path=(
+                figures_directory
+                / "quality_score_histogram.png"
+            ),
+        )
 
-    plot_top_label_issues(
-        data_dir=data_dir,
-        results_table=(
-            detection_result.results_table
-        ),
-        output_path=(
-            figures_directory
-            / "top_label_issues.png"
-        ),
-        maximum_samples=16,
-    )
+        plot_confidence_comparison(
+            results_table=(
+                detection_result.results_table
+            ),
+            output_path=(
+                figures_directory
+                / "self_confidence_comparison.png"
+            ),
+        )
+
+        plot_detection_metrics(
+            metrics=detection_result.metrics,
+            output_path=(
+                figures_directory
+                / "detection_metrics.png"
+            ),
+        )
+
+        plot_top_label_issues(
+            data_dir=data_dir,
+            results_table=(
+                detection_result.results_table
+            ),
+            output_path=(
+                figures_directory
+                / "top_label_issues.png"
+            ),
+            maximum_samples=16,
+        )
 
     metrics = detection_result.metrics
 
@@ -434,7 +449,8 @@ def main() -> None:
         )
 
     print(f"Results: {cleanlab_directory}")
-    print(f"Figures: {figures_directory}")
+    if not arguments.skip_figures:
+        print(f"Figures: {figures_directory}")
 
 if __name__ == "__main__":
         main()
